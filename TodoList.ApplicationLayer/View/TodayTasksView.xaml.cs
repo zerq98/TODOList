@@ -14,19 +14,17 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using TodoList.ApplicationLayer.ViewModel;
 
-namespace TodoList
+namespace TodoList.ApplicationLayer.View
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for TodayTasksView.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class TodayTasksView : UserControl
     {
-        public MainWindow()
+        public TodayTasksView()
         {
             InitializeComponent();
-            this.CloseBtn.Click += (s, e) => this.Close();
-            this.MinimizeBtn.Click += (s, e) => this.WindowState = WindowState.Minimized;
-            this.DataContext = new MainWindowVM();
+            this.DataContext = new TodayTasksVM();
         }
     }
 }

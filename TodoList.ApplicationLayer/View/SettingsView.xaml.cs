@@ -12,21 +12,17 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using TodoList.ApplicationLayer.ViewModel;
 
-namespace TodoList
+namespace TodoList.ApplicationLayer.View
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for SettingsView.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class SettingsView : UserControl
     {
-        public MainWindow()
+        public SettingsView()
         {
             InitializeComponent();
-            this.CloseBtn.Click += (s, e) => this.Close();
-            this.MinimizeBtn.Click += (s, e) => this.WindowState = WindowState.Minimized;
-            this.DataContext = new MainWindowVM();
         }
     }
 }

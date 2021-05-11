@@ -20,42 +20,43 @@
         </Grid.ColumnDefinitions>
         <TextBlock Foreground="WhiteSmoke" FontSize="20" Grid.Column="0" Grid.Row="0"
                    Text="TODO List" Margin="35,5" Width="100" HorizontalAlignment="Left"/>
-        <Button x:Name="Minimize" Width="30" Height="30" Margin="10,5,5,5" WindowChrome.IsHitTestVisibleInChrome="True"
+        <Button x:Name="MinimizeBtn" Width="30" Height="30" Margin="10,5,5,5" WindowChrome.IsHitTestVisibleInChrome="True"
                 Grid.Column="1" Grid.Row="0" Background="Transparent" Style="{DynamicResource Button.Hoverless}"
                 HorizontalAlignment="Left">
             <Image Source="Images/minimize-ios.png"/>
         </Button>
-        <Button x:Name="Close" Width="30" Height="30" Margin="5,5,10,5" WindowChrome.IsHitTestVisibleInChrome="True"
+        <Button x:Name="CloseBtn" Width="30" Height="30" Margin="5,5,10,5" WindowChrome.IsHitTestVisibleInChrome="True"
                 Grid.Column="1" Grid.Row="0" Background="Transparent" Style="{DynamicResource Button.Hoverless}"
                 HorizontalAlignment="Right">
             <Image Source="Images/close-ios.png"/>
         </Button>
-        <WrapPanel Orientation="Vertical" Grid.Column="1" Grid.Row="1">
-            <Button Width="80" Height="80" Margin="5,5,0,5"
+        <WrapPanel Orientation="Vertical" Grid.Column="1" Grid.Row="1" Margin="0,40">
+            <Button Width="80" Height="80" Margin="5,15,0,15"
                 Background="Transparent" Style="{DynamicResource Button.Hoverless}"
-                HorizontalAlignment="Right">
-                <Image Source="Images/close-ios.png"/>
+                HorizontalAlignment="Right" Command="{Binding ChangeCommand}" CommandParameter="TodayTasks">
+                <Image Source="Images/today-ios.png"/>
             </Button>
-            <Button Width="80" Height="80" Margin="5,5,0,5"
+            <Button Width="80" Height="80" Margin="5,15,0,15"
                 Background="Transparent" Style="{DynamicResource Button.Hoverless}"
-                HorizontalAlignment="Right">
-                <Image Source="Images/close-ios.png"/>
+                HorizontalAlignment="Right" Command="{Binding ChangeCommand}" CommandParameter="ThisWeek">
+                <Image Source="Images/todo.png"/>
             </Button>
-            <Button Width="80" Height="80" Margin="5,5,0,5"
+            <Button Width="80" Height="80" Margin="5,15,0,15"
                 Background="Transparent" Style="{DynamicResource Button.Hoverless}"
-                HorizontalAlignment="Right">
-                <Image Source="Images/close-ios.png"/>
+                HorizontalAlignment="Right" Command="{Binding ChangeCommand}" CommandParameter="Projects">
+                <Image Source="Images/project-ios.png"/>
             </Button>
-            <Button Width="80" Height="80" Margin="5,5,0,5"
+            <Button Width="80" Height="80" Margin="5,15,0,15"
                 Background="Transparent" Style="{DynamicResource Button.Hoverless}"
-                HorizontalAlignment="Right">
-                <Image Source="Images/close-ios.png"/>
+                HorizontalAlignment="Right" Command="{Binding ChangeCommand}" CommandParameter="Calendar">
+                <Image Source="Images/calendar-ios.png"/>
             </Button>
-            <Button Width="80" Height="80" Margin="5,5,0,5"
+            <Button Width="80" Height="80" Margin="5,15,0,15"
                 Background="Transparent" Style="{DynamicResource Button.Hoverless}"
-                HorizontalAlignment="Right">
-                <Image Source="Images/close-ios.png"/>
+                HorizontalAlignment="Right" Command="{Binding ChangeCommand}" CommandParameter="Settings">
+                <Image Source="Images/settings.png"/>
             </Button>
         </WrapPanel>
+        <ContentControl Grid.Row="1" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Content="{Binding ActiveControl,UpdateSourceTrigger=PropertyChanged}"/>
     </Grid>
 </Window>

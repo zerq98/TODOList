@@ -41,13 +41,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Entity\AddonPerson.cs" />
     <Compile Include="Entity\Issue.cs" />
-    <Compile Include="Entity\IssueType.cs" />
-    <Compile Include="Entity\Location.cs" />
+    <Compile Include="Entity\IssueTypeEnum.cs" />
     <Compile Include="Entity\Project.cs" />
-    <Compile Include="Entity\Reminder.cs" />
+    <Compile Include="Entity\Settings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Reposiotry\FileRepository.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

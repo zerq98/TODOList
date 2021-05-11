@@ -10,23 +10,20 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 using TodoList.ApplicationLayer.ViewModel;
+using TodoList.Domain.Entity;
 
-namespace TodoList
+namespace TodoList.ApplicationLayer.View
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
-    public partial class MainWindow : Window
+    public partial class NewTaskView : Window
     {
-        public MainWindow()
+        public Issue issue;
+
+        public NewTaskView(string projectName)
         {
             InitializeComponent();
-            this.CloseBtn.Click += (s, e) => this.Close();
-            this.MinimizeBtn.Click += (s, e) => this.WindowState = WindowState.Minimized;
-            this.DataContext = new MainWindowVM();
+            this.DataContext = new NewTaskVM(issue, projectName, this);
         }
     }
 }

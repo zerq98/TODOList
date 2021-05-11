@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TodoList.Domain.Entity
 {
-    public enum IssueType
+    public enum IssueTypeEnum
     {
         ImportantAndUrgent,
         ImportantAndNotUrgent,

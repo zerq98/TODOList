@@ -6,10 +6,7 @@ using System.Threading.Tasks;
 
 namespace TodoList.Domain.Entity
 {
-    public class AddonPerson
+    public class Settings
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public string Email { get; set; }
     }
 }
