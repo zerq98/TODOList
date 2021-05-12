@@ -20,4 +20,15 @@
             </Setter.Value>
         </Setter>
     </Style>
+
+    <Style TargetType="{x:Type Grid}" x:Key="listViewItemsColoring">
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding IsCompleted}" Value="true">
+                <Setter Property="Background" Value="Green"></Setter>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding IsCompleted}" Value="false">
+                <Setter Property="Background" Value="LightGray"></Setter>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
 </ResourceDictionary>

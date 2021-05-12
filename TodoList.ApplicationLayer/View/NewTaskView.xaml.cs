@@ -18,9 +18,8 @@ namespace TodoList.ApplicationLayer.View
 {
     public partial class NewTaskView : Window
     {
-        public Issue issue;
-
-        public NewTaskView(string projectName)
+        public Issue Issue { get; set; }
+        public NewTaskView(string projectName, Issue issue)
         {
             InitializeComponent();
             this.DataContext = new NewTaskVM(issue, projectName, this);

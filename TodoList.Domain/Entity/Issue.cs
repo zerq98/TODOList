@@ -13,6 +13,7 @@ namespace TodoList.Domain.Entity
         public string Title { get; set; }
         public string Description { get; set; }
         public string ProjectName { get; set; }
+        public bool IsCompleted { get; set; }
         public IssueTypeEnum IssueType { get; set; }
         public DateTime IssueDate { get; set; }
         public string Localization { get; set; }

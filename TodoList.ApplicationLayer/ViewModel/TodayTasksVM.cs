@@ -36,6 +36,33 @@ namespace TodoList.ApplicationLayer.ViewModel
             }
         }
 
+        private ICommand showDetailCommand;
+        public ICommand ShowDetailCommand
+        {
+            get
+            {
+                return showDetailCommand ?? (showDetailCommand = new RelayCommand((param) => OpenNew(param), true));
+            }
+        }
+
+        private ICommand completeCommand;
+        public ICommand CompleteCommand
+        {
+            get
+            {
+                return completeCommand ?? (completeCommand = new RelayCommand((param) => MarkAsCompleted(param), true));
+            }
+        }
+
+        private ICommand removeCommand;
+        public ICommand RemoveCommand
+        {
+            get
+            {
+                return removeCommand ?? (removeCommand = new RelayCommand((param) => Remove(param), true));
+            }
+        }
+
         public TodayTasksVM()
         {
             InitializeData();
@@ -44,18 +71,61 @@ namespace TodoList.ApplicationLayer.ViewModel
 
         private void OpenNew(object param)
         {
-            NewTaskView newTaskView = new NewTaskView("");
-            newTaskView.issue = null;
+            NewTaskView newTaskView;
+            int id;
+            int.TryParse(param.ToString(), out id);
+
+            if (id > 0)
+            {
+                newTaskView= new NewTaskView("", Issues.FirstOrDefault(x => x.Id == id));
+            }
+            else
+            {
+                newTaskView = new NewTaskView("", null);
+            }
 
             if (newTaskView.ShowDialog().Value)
             {
-                newTaskView.issue.Id = FileRepository.GetLastId("Issue");
-                Issues.Add(newTaskView.issue);
+                newTaskView.Issue.Id = FileRepository.GetLastId("Issue");
+                Issues.Add(newTaskView.Issue);
                 FileRepository.UpdateFile<Issue>("issue", Issues.ToList());
-                if (newTaskView.issue.IssueDate.Date == DateTime.Now.Date)
+                if (newTaskView.Issue.IssueDate.Date == DateTime.Now.Date)
                 {
-                    TodayIssues.Add(newTaskView.issue);
+                    TodayIssues.Add(newTaskView.Issue);
                 }
+            }
+        }
+
+        private void Remove(object param)
+        {
+            int id;
+            int.TryParse(param.ToString(), out id);
+
+            var issue = Issues.FirstOrDefault(x => x.Id == id);
+
+            if (issue != null)
+            {
+                Issues.Remove(issue);
+                TodayIssues.Remove(issue);
+                FileRepository.UpdateFile<Issue>("issue", Issues.ToList());
+            }
+        }
+
+        private void MarkAsCompleted(object param)
+        {
+            int id;
+            int.TryParse(param.ToString(), out id);
+
+            var issue = Issues.FirstOrDefault(x => x.Id == id);
+
+            if (issue != null)
+            {
+                var index = Issues.IndexOf(issue);
+                var indexSecond = TodayIssues.IndexOf(issue);
+
+                Issues[index].IsCompleted = true;
+                TodayIssues[indexSecond].IsCompleted = true;
+                FileRepository.UpdateFile<Issue>("issue", Issues.ToList());
             }
         }
     }

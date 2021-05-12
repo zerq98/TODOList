@@ -1,11 +1,15 @@
-﻿<UserControl x:Class="TodoList.ApplicationLayer.View.TodayTasksView"
+﻿<UserControl
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:TodoList.ApplicationLayer.View"
+             xmlns:Converter="clr-namespace:TodoList.ApplicationLayer.Converter" x:Class="TodoList.ApplicationLayer.View.TodayTasksView"
              mc:Ignorable="d"
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="450" d:DesignWidth="800" x:Name="TodayTasks">
+    <UserControl.Resources>
+        <Converter:BooleanToColorConverter x:Key="BooleanToColorConverter" FalseBrush="#FF0000" TrueBrush="#00FF00"/>
+    </UserControl.Resources>
     <Grid Background="Black">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="60"/>
@@ -14,20 +18,38 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="30"/>
-            <RowDefinition Height="100*"/>
+            <RowDefinition Height="400*"/>
         </Grid.RowDefinitions>
         <TextBlock Grid.Row="0" Grid.Column="1" Text="Today tasks" FontSize="20" FontWeight="Bold" HorizontalAlignment="Stretch" Foreground="White"/>
-        <Button Grid.Row="0" Grid.Column="2" Width="30" Height="30" Padding="2" Background="Transparent" 
+        <Button Grid.Row="0" Grid.Column="2" Width="30" Height="30" Padding="2" Background="Transparent"
                 Style="{DynamicResource Button.Hoverless}" Command="{Binding OpenNewCommand}" CommandParameter="">
             <Image Source="../Images/plus-ios.png"/>
         </Button>
-        <ListView Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" BorderThickness="0" ItemsSource="{Binding TodayIssues,UpdateSourceTrigger=PropertyChanged}" Background="Transparent">
+        <ListView x:Name="TaskList" HorizontalContentAlignment="Stretch" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" BorderThickness="0" ItemsSource="{Binding TodayIssues, UpdateSourceTrigger=PropertyChanged}" Background="Transparent">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <StackPanel Background="DarkGray">
-                        <TextBlock Text="{Binding Title}" FontSize="18" FontWeight="Bold"/>
-                        <TextBlock Text="{Binding IssueDate,StringFormat={}{dd.MM.yyyy HH:mm}}" FontSize="10"/>
-                    </StackPanel>
+                    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="{Binding IsCompleted,Converter={StaticResource BooleanToColorConverter}}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="200*"/>
+                            <ColumnDefinition Width="100"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.InputBindings>
+                            <MouseBinding Gesture="LeftDoubleClick" Command="{Binding DataContext.ShowDetailCommand, ElementName=TodayTasks}" CommandParameter="{Binding Id}"/>
+                        </Grid.InputBindings>
+                        <StackPanel Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="25,5,0,5">
+                            <TextBlock Text="{Binding Title}" FontSize="18" FontWeight="Bold"/>
+                            <TextBlock Text="{Binding IssueDate, StringFormat=\{0:dd.MM.yyyy HH:mm\}}" FontSize="10"/>
+                        </StackPanel>
+                        <WrapPanel Grid.Column="1" Orientation="Horizontal">
+                            <Button Width="40" Style="{DynamicResource Button.Hoverless}" Background="Transparent" Margin="5" Command="{Binding DataContext.CompleteCommand, ElementName=TodayTasks}" CommandParameter="{Binding Id}">
+                                <Image Source="../Images/check.png"/>
+                            </Button>
+                            <Button Width="40" Style="{DynamicResource Button.Hoverless}" Background="Transparent" Margin="5" Command="{Binding DataContext.RemoveCommand, ElementName=TodayTasks}" CommandParameter="{Binding Id}">
+                                <Image Source="../Images/remove.png"/>
+                            </Button>
+                        </WrapPanel>
+                    </Grid>
+
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>

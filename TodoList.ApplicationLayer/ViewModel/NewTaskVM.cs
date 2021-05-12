@@ -91,7 +91,7 @@ namespace TodoList.ApplicationLayer.ViewModel
             switch (param.ToString())
             {
                 case "Confirm":
-                    _view.issue = Issue;
+                    _view.Issue = Issue;
                     _view.DialogResult = true;
                     _view.Close();
                     break;
